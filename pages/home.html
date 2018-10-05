@@ -1,0 +1,843 @@
+<div id="home">
+	<!-- 布局 -->
+	<div class="outerDiv">
+		<div class="row">
+			<div class="col-sm-3">
+				<!-- 3个div -->
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-green">
+						<i class="iconfont icon-yun"></i>
+					</div>
+					<div class="numDiv">
+						<span>99.9%</span>
+						<small>SERVER UPTIME</small>
+					</div>
+				</div>
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-purple">
+						<i class="iconfont icon-user"></i>
+					</div>
+					<div class="numDiv">
+						<span>117k</span>
+						<small>USERS TOTAL</small>
+					</div>
+				</div>
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-blue">
+						<i class="iconfont icon-18"></i>
+					</div>
+					<div class="numDiv">
+						<span>2,470</span>
+						<small>NEW DAILY PHOTOS</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="visDiv">
+					<div id="visContainer"></div>
+					<div class="numDiv">
+						<span>14.85%</span>
+						<small>More Visitors</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="uptimeDiv">
+					<div id="uptimeContainer"></div>
+					<div class="numDiv">
+						<span>95.8%</span>
+						<small>CURRENT SERVER UPTIME</small>
+					</div>
+				</div>
+				<div class="salesDiv">
+					<div id="salesContainer"></div>
+					<div class="numDiv">
+						<span>320,45</span>
+						<small>AVG OF SALES</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="pagDiv">
+					<div id="pagContainer"></div>
+				</div>
+				<div class="pag1Div">
+					<div id="pag1Container"></div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="dowDiv bg-white">
+					<div id="dowContainer"></div>
+					<div class="numDiv">
+						<span>15.05mb/s</span>
+						<small>DOWLOAD SPEED</small>
+					</div>
+				</div>
+				<div class="cpuDiv bg-white">
+					<div id="cpuContainer"></div>
+					<div class="numDiv">
+						<span>67.35%</span>
+						<small>CPU USAGE<br />sentiments two occasional paper<br />how the affective energies<br />cultural expectations set in motion</small>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		drawVis();
+		drawUptime();
+		drawSales();
+		drawPag();
+		drawpag1();
+		drawdow();
+		drawcpu();
+		function drawcpu(){
+			var chart = Highcharts.chart('cpuContainer', {
+				credits:{
+					enabled:false,
+				},
+				chart: {
+					type: 'gauge',
+					alignTicks: false,
+					plotBackgroundColor: null,
+					plotBackgroundImage: null,
+					plotBorderWidth: 0,
+					plotShadow: false
+				},
+				title: {
+					text: ''
+				},
+				pane: {
+					startAngle: -150,
+					endAngle: 150
+				},
+				yAxis: [{
+					min: 0,
+					max: 200,
+					lineColor: '#339',
+					tickColor: '#339',
+					minorTickColor: '#339',
+					offset: -25,
+					lineWidth: 2,
+					labels: {
+						distance: -20,
+						rotation: 'auto'
+					},
+					tickLength: 5,
+					minorTickLength: 5,
+					endOnTick: false
+				}, {
+					min: 0,
+					max: 124,
+					tickPosition: 'outside',
+					lineColor: '#933',
+					lineWidth: 2,
+					minorTickPosition: 'outside',
+					tickColor: '#933',
+					minorTickColor: '#933',
+					tickLength: 5,
+					minorTickLength: 5,
+					labels: {
+						distance: 12,
+						rotation: 'auto'
+					},
+					offset: -20,
+					endOnTick: false
+				}],
+				series: [{
+					name: '速度',
+					data: [80],
+					dataLabels: {
+						formatter: function () {
+							var kmh = this.y,
+								mph = Math.round(kmh * 0.621);
+							return '<span style="color:#339">' + kmh + ' km/h</span><br/>' +
+								'<span style="color:#933">' + mph + ' mph</span>';
+						},
+						backgroundColor: {
+							linearGradient: {
+								x1: 0,
+								y1: 0,
+								x2: 0,
+								y2: 1
+							},
+							stops: [
+								[0, '#DDD'],
+								[1, '#FFF']
+							]
+						}
+					},
+					tooltip: {
+						valueSuffix: ' km/h'
+					}
+				}]
+			},function (chart) {
+				setInterval(function () {
+					var point = chart.series[0].points[0],
+						newVal,
+						inc = Math.round((Math.random() - 0.5) * 20);
+					newVal = point.y + inc;
+					if (newVal < 0 || newVal > 200) {
+						newVal = point.y - inc;
+					}
+					point.update(newVal);
+				}, 3000);
+			});
+					}
+					function drawdow(){
+						var chart = Highcharts.chart('dowContainer',{
+							credits:{
+								enabled:false,
+							},
+				chart: {
+					type: 'gauge',
+					plotBackgroundColor: null,
+					plotBackgroundImage: null,
+					plotBorderWidth: 0,
+					plotShadow: false
+				},
+				title: {
+					text: ''
+				},
+				pane: {
+					startAngle: -150,
+					endAngle: 150,
+					background: [{
+						backgroundColor: {
+							linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+							stops: [
+								[0, '#FFF'],
+								[1, '#333']
+							]
+						},
+						borderWidth: 0,
+						outerRadius: '109%'
+					}, {
+						backgroundColor: {
+							linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+							stops: [
+								[0, '#333'],
+								[1, '#FFF']
+							]
+						},
+						borderWidth: 1,
+						outerRadius: '107%'
+					}, {
+						// default background
+					}, {
+						backgroundColor: '#DDD',
+						borderWidth: 0,
+						outerRadius: '105%',
+						innerRadius: '103%'
+					}]
+				},
+				// the value axis
+				yAxis: {
+					min: 0,
+					max: 200,
+					minorTickInterval: 'auto',
+					minorTickWidth: 1,
+					minorTickLength: 10,
+					minorTickPosition: 'inside',
+					minorTickColor: '#666',
+					tickPixelInterval: 30,
+					tickWidth: 2,
+					tickPosition: 'inside',
+					tickLength: 10,
+					tickColor: '#666',
+					labels: {
+						step: 2,
+						rotation: 'auto'
+					},
+					title: {
+						text: 'km/h'
+					},
+					plotBands: [{
+						from: 0,
+						to: 120,
+						color: '#55BF3B' // green
+					}, {
+						from: 120,
+						to: 160,
+						color: '#DDDF0D' // yellow
+					}, {
+						from: 160,
+						to: 200,
+						color: '#DF5353' // red
+					}]
+				},
+				series: [{
+					name: 'Speed',
+					data: [80],
+					tooltip: {
+						valueSuffix: ' km/h'
+					}
+				}]
+			}, function (chart) {
+				if (!chart.renderer.forExport) {
+					setInterval(function () {
+						var point = chart.series[0].points[0],
+							newVal,
+							inc = Math.round((Math.random() - 0.5) * 20);
+						newVal = point.y + inc;
+						if (newVal < 0 || newVal > 200) {
+							newVal = point.y - inc;
+						}
+						point.update(newVal);
+					}, 2000);
+				}
+			});
+		}
+		function drawpag1(){
+			var chart = Highcharts.chart('pag1Container', {
+				legend: {
+					floating:true,
+					layout: 'vertical',
+					align: 'left',
+					verticalAlign: 'top'
+				},
+					credits:{
+						enabled:false,
+					},
+					chart: {
+						type: 'area'
+					},
+					title: {
+						text: ''
+					},
+					subtitle: {
+						text: ''
+					},
+					xAxis: {
+						visible:false,
+					},
+					yAxis: {
+						visible:false,
+					},
+					tooltip: {
+						pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} 百万)<br/>',
+						shared: true
+					},
+					plotOptions: {
+						area: {
+							stacking: 'percent',
+							lineColor: '#ffffff',
+							lineWidth: 1,
+							marker: {
+								lineWidth: 1,
+								lineColor: '#ffffff'
+							}
+						}
+					},
+					series: [{
+						name: '亚洲',
+						data: [502, 635, 809, 947, 1402, 3634, 5268]
+					}, {
+						name: '非洲',
+						data: [106, 107, 111, 133, 221, 767, 1766]
+					}, {
+						name: '欧洲',
+						data: [163, 203, 276, 408, 547, 729, 628]
+					}, {
+						name: '美洲',
+						data: [18, 31, 54, 156, 339, 818, 1201]
+					}, {
+						name: '大洋洲',
+						data: [2, 2, 2, 6, 13, 30, 46]
+					}]
+				});
+		}
+		function drawPag(){
+			var colors = Highcharts.getOptions().colors,
+				categories = [
+					"Chrome",
+					"Firefox",
+					"Internet Explorer",
+					"Safari",
+					"Edge",
+					"Opera",
+					"Other"
+				],
+				data = [
+					{
+						"y": 62.74,
+						"color": colors[2],
+						"drilldown": {
+							"name": "Chrome",
+							"categories": [
+								"Chrome v65.0",
+								"Chrome v64.0",
+								"Chrome v63.0",
+								"Chrome v62.0",
+								"Chrome v61.0",
+								"Chrome v60.0",
+								"Chrome v59.0",
+								"Chrome v58.0",
+								"Chrome v57.0",
+								"Chrome v56.0",
+								"Chrome v55.0",
+								"Chrome v54.0",
+								"Chrome v51.0",
+								"Chrome v49.0",
+								"Chrome v48.0",
+								"Chrome v47.0",
+								"Chrome v43.0",
+								"Chrome v29.0"
+							],
+							"data": [
+								0.1,
+								1.3,
+								53.02,
+								1.4,
+								0.88,
+								0.56,
+								0.45,
+								0.49,
+								0.32,
+								0.29,
+								0.79,
+								0.18,
+								0.13,
+								2.16,
+								0.13,
+								0.11,
+								0.17,
+								0.26
+							]
+						}
+					},
+					{
+						"y": 10.57,
+						"color": colors[1],
+						"drilldown": {
+							"name": "Firefox",
+							"categories": [
+								"Firefox v58.0",
+								"Firefox v57.0",
+								"Firefox v56.0",
+								"Firefox v55.0",
+								"Firefox v54.0",
+								"Firefox v52.0",
+								"Firefox v51.0",
+								"Firefox v50.0",
+								"Firefox v48.0",
+								"Firefox v47.0"
+							],
+							"data": [
+								1.02,
+								7.36,
+								0.35,
+								0.11,
+								0.1,
+								0.95,
+								0.15,
+								0.1,
+								0.31,
+								0.12
+							]
+						}
+					},
+					{
+						"y": 7.23,
+						"color": colors[0],
+						"drilldown": {
+							"name": "Internet Explorer",
+							"categories": [
+								"Internet Explorer v11.0",
+								"Internet Explorer v10.0",
+								"Internet Explorer v9.0",
+								"Internet Explorer v8.0"
+							],
+							"data": [
+								6.2,
+								0.29,
+								0.27,
+								0.47
+							]
+						}
+					},
+					{
+						"y": 5.58,
+						"color": colors[3],
+						"drilldown": {
+							"name": "Safari",
+							"categories": [
+								"Safari v11.0",
+								"Safari v10.1",
+								"Safari v10.0",
+								"Safari v9.1",
+								"Safari v9.0",
+								"Safari v5.1"
+							],
+							"data": [
+								3.39,
+								0.96,
+								0.36,
+								0.54,
+								0.13,
+								0.2
+							]
+						}
+					},
+					{
+						"y": 4.02,
+						"color": colors[5],
+						"drilldown": {
+							"name": "Edge",
+							"categories": [
+								"Edge v16",
+								"Edge v15",
+								"Edge v14",
+								"Edge v13"
+							],
+							"data": [
+								2.6,
+								0.92,
+								0.4,
+								0.1
+							]
+						}
+					},
+					{
+						"y": 1.92,
+						"color": colors[4],
+						"drilldown": {
+							"name": "Opera",
+							"categories": [
+								"Opera v50.0",
+								"Opera v49.0",
+								"Opera v12.1"
+							],
+							"data": [
+								0.96,
+								0.82,
+								0.14
+							]
+						}
+					},
+					{
+						"y": 7.62,
+						"color": colors[6],
+						"drilldown": {
+							"name": 'Other',
+							"categories": [
+								'Other'
+							],
+							"data": [
+								7.62
+							]
+						}
+					}
+				],
+				browserData = [],
+				versionsData = [],
+				i,
+				j,
+				dataLen = data.length,
+				drillDataLen,
+				brightness;
+			// Build the data arrays
+			for (i = 0; i < dataLen; i += 1) {
+				// add browser data
+				browserData.push({
+					name: categories[i],
+					y: data[i].y,
+					color: data[i].color
+				});
+				// add version data
+				drillDataLen = data[i].drilldown.data.length;
+				for (j = 0; j < drillDataLen; j += 1) {
+					brightness = 0.2 - (j / drillDataLen) / 5;
+					versionsData.push({
+						name: data[i].drilldown.categories[j],
+						y: data[i].drilldown.data[j],
+						color: Highcharts.Color(data[i].color).brighten(brightness).get()
+					});
+				}
+			}
+			// Create the chart
+			Highcharts.chart('pagContainer', {
+				credits:{
+					enabled:false,
+				},
+				chart: {
+					type: 'pie'
+				},
+				title: {
+					text: ''
+				},
+				subtitle: {
+					text: ''
+				},
+				yAxis: {
+					title: {
+						text: 'Total percent market share'
+					}
+				},
+				plotOptions: {
+					pie: {
+						shadow: false,
+						center: ['50%', '50%']
+					}
+				},
+				tooltip: {
+					valueSuffix: '%'
+				},
+				series: [{
+					name: 'Browsers',
+					data: browserData,
+					size: '60%',
+					dataLabels: {
+						formatter: function () {
+							return this.y > 5 ? this.point.name : null;
+						},
+						color: '#ffffff',
+						distance: -30
+					}
+				}, {
+					name: 'Versions',
+					data: versionsData,
+					size: '80%',
+					innerSize: '60%',
+					dataLabels: {
+						formatter: function () {
+							// display only if larger than 1
+							return this.y > 1 ? '<b>' + this.point.name + ':</b> ' +
+								this.y + '%' : null;
+						}
+					},
+					id: 'versions'
+				}],
+				responsive: {
+					rules: [{
+						condition: {
+							maxWidth: 400
+						},
+						chartOptions: {
+							series: [{
+								id: 'versions',
+								dataLabels: {
+									enabled: false
+								}
+							}]
+						}
+					}]
+				}
+			});
+		}
+		function drawSales(){
+			var chart = Highcharts.chart('salesContainer', {
+				colors:['green'],
+				credits:{
+					enabled:false,
+				},
+				chart: {
+					margin : [0, 0 , 0, 100]
+				},
+				title: {
+					floating:true,
+					text: ''
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false,
+						},
+					}
+				},
+				series: [{
+					type: 'pie',
+					innerSize: '60%',
+					name: 'Sales',
+					data: [
+						['Firefox',45.0],
+						['IE',22.8],
+						['Chrome',12.8],
+						['Safari',9.5],
+						['Opera',6.2],
+						['其他',3.7]
+					]
+				}]
+			});
+		}
+		function drawUptime(){
+			var chart = Highcharts.chart('uptimeContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#862eb7'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+				},
+				series: [{
+					type: 'column',
+					colorByPoint: true,
+					data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 150.4, 185.1, 95.6, 54.4,148.5, 180.4, 194.1, 95.6, 54.4],
+					showInLegend: false
+				}]
+			});
+		}
+		function drawVis(){
+			// 绘制
+			var chart = Highcharts.chart('visContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#66bb0d','#cccccc'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+					title: {
+						text: ''
+					}
+				},
+				legend: {
+					floating:true,
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'top'
+				},
+				plotOptions: {
+					series: {
+						label: {
+							connectorAllowed: false
+						},
+						pointStart: 2010
+					}
+				},
+				series: [{
+					name: 'Page',
+					data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175,144411,122220,99999,29851,24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+				}, {
+					name: 'Visitors',
+					data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434,43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+				}]
+			});
+		}
+	});
+</script>
+<style>
+	#home{
+
+	}
+	.bg-white{
+		background-color: white;
+	}
+	.bg-green{
+		background-color:#66bb0d;
+	}
+	.bg-purple{
+		background-color: #862eb7;
+	}
+	.bg-blue{
+		background-color: lightblue;
+	}
+	.outerDiv{
+		width: 95%;
+		margin:0 auto;
+		margin-bottom: 20px;
+	}
+	.totalDiv{
+		overflow:hidden;
+		padding: 10px;
+		border-radius: 5px;
+		margin-top:10px;
+	}
+	.totalDiv .iconDiv,.totalDiv .numDiv{
+		float:left; 
+		margin-left:20px;
+	}
+	.iconDiv{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		text-align: center;
+	}
+	.iconDiv i{
+		line-height: 50px;
+		color:white;
+		font-size: 35px;
+	}
+	.totalDiv .numDiv{
+		margin-left: 20px;
+		padding-top:5px;
+	}
+	.numDiv span{
+		font-size: 24px;
+		line-height: 24px;
+	}
+	.numDiv small{
+		display: block;
+	}
+	#visContainer{
+		height: 230px;
+		margin-top: 10px;
+	}
+	.visDiv,.uptimeDiv,.salesDiv,.dowDiv,.cpuDiv{
+		position: relative;
+	}
+	.visDiv .numDiv,.uptimeDiv .numDiv,.salesDiv .numDiv{
+		position: absolute;
+		top:8px;
+		left: 20px;
+		font-weight:600;
+	}
+	.dowDiv .numDiv,.cpuDiv .numDiv{
+		position: absolute;
+		top:35px;
+		left: 20px;
+		font-weight:600;
+	}
+	.visDiv span,.cpuDiv span{
+		color:#66bb0d;
+	}
+	.uptimeDiv span,.dowDiv span{
+		color:#862eb7;
+	}
+	.salesDiv span{
+		color:green;
+	}
+	.uptimeDiv,.salesDiv,.dowDiv,.cpuDiv,.pagDiv{
+		margin-top: 10px;
+	}
+	#uptimeContainer,#salesContainer,#dowContainer,#cpuContainer{
+		height: 110px;
+	}
+	#pagContainer{
+		height: 260px;
+	}
+	#pag1Container{
+		height: 220px;
+	}
+	#dowContainer{
+		height: 200px;
+		margin-left: 200px;
+	}
+	#cpuContainer{
+		height: 270px;
+		margin-left: 255px;
+	}
+</style>
